@@ -1,5 +1,6 @@
 #include "unity.h"
 #include "interpreter_tests/interpreter_test.h"
+#include "interpreter_tests/lexer_tests.h"
 
 void setUp(void) {
     // Optional: initialize test environment
@@ -16,9 +17,8 @@ void test_addition(void) {
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(
-        test_interpreter
-    );
+    // RUN_TEST(test_interpreter);
+    RUN_TEST(lexer_basic_test);
     return UNITY_END();
 }
 

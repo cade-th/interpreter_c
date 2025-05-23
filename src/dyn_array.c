@@ -1,4 +1,4 @@
-#include "../dyn_array.h"
+#include "../include/dyn_array.h"
 #include <stdlib.h>
 #include <string.h>
 

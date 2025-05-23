@@ -1,4 +1,4 @@
-#include "../lexer.h"
+#include "../include/lexer.h"
 
 
 Lexer Lexer_new(char *input) {

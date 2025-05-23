@@ -1,7 +1,7 @@
 #include "interpreter_test.h"
-#include "../../src/lexer.h"
-#include "../../src/parser.h"
-#include "../../src/evaluator.h"
+#include "../../include/lexer.h"
+#include "../../include/parser.h"
+#include "../../include/evaluator.h"
 #include <string.h>
 #include "../unity.h"
 
