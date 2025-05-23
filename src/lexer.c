@@ -1,6 +1,5 @@
 #include "../include/lexer.h"
 
-
 Lexer Lexer_new(char *input) {
 
 }

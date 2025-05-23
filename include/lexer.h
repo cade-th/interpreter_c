@@ -2,24 +2,16 @@
 #include "error.h"
 
 typedef enum {
-	Ident,
-	Integer,
-	Illegal,
-	EOF,
-	Int,
-	Assign,
-	Plus,
-	Asterisk,
-	Slash,
-	Minus,
-	Comma,
-	Semicolon,
-	Lparen,
-	Rparen,
-	Lbrace,
-	Rbrace,
-	Function,
-	Let
+	INT,
+	PLUS,
+	ASTERISK,
+	LET,
+	SEMICOLON,
+	COMMA,
+	Eof,
+	ASSIGN,
+	IDENT,
+	ILLEGAL
 } Token_t;
 
 typedef struct {

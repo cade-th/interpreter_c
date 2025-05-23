@@ -6,21 +6,16 @@ CFLAGS = -std=c99
 SRC_DIR = src
 TEST_DIR = tests
 BUILD_DIR = build
-LIB_DIR = lib
 
 # Files
 #	$(SRC_DIR)/main.c 
 SRC_FILES = $(SRC_DIR)/*.c 
 
-LIB_FILES = \
-	$(LIB_DIR)/utils_c/src/dyn_array.c
-
 TEST_FILES = \
 	$(SRC_FILES) \
-	$(LIB_FILES) \
 	$(TEST_DIR)/main.c \
 	$(TEST_DIR)/unity.c \
-	$(TEST_DIR)/interpreter_tests/src/*.c
+	$(TEST_DIR)/data_structure_tests/src/*.c
 
 # Binaries
 APP_BIN = $(BUILD_DIR)/app

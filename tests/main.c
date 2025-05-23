@@ -1,6 +1,6 @@
 #include "unity.h"
-#include "interpreter_tests/interpreter_test.h"
-#include "interpreter_tests/lexer_tests.h"
+#include "interpreter_tests/include/interpreter_test.h"
+#include "interpreter_tests/include/lexer_tests.h"
 
 void setUp(void) {
     // Optional: initialize test environment
