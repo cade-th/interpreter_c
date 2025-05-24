@@ -11,7 +11,12 @@ typedef enum {
 	Eof,
 	ASSIGN,
 	IDENT,
-	ILLEGAL
+	ILLEGAL,
+
+	RPAREN,
+	LPAREN,
+	RBRACKET,
+	LBRACKET
 } Token_t;
 
 typedef struct {
@@ -21,13 +26,19 @@ typedef struct {
 
 typedef struct {
 	char *input;
-	int position;
-	int read_position;
-	char *ch;
+	int position; // currrent position in the input (points to the current char
+	int read_position; // current reading position in the input (after current char)
+	char ch; // current char under examination
 } Lexer;
 
 // Return either an array of tokens or an error
 RESULT(Token *, char *) LEX_RESULT;
+RESULT(Token, char *) TOKEN_RESULT;
 
+Token tok_new(Token_t type, char ch);
+char *tokens_to_string(Token *tokens);
+
+void read_char(Lexer *self);
 Lexer Lexer_new(char *input);
 LEX_RESULT lex(Lexer *self);
+TOKEN_RESULT next_token(Lexer *self);
