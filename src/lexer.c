@@ -3,6 +3,8 @@
 Lexer Lexer_new(char *input) {
 
 }
-Token *lex(Lexer *self) {
 
+LEX_RESULT lex(Lexer *self) {
+	LEX_RESULT result = ERR("Write the lexer lol\n");	
+	return result;
 }

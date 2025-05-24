@@ -4,8 +4,13 @@
 
 int main(void) {
     // test_interpreter();    
-    lexer_basic_test();
-    printf("Test ran\n");
+    LEX_TEST_RESULT result = lexer_basic_test();
+    if (result.is_ok) {
+        printf("Success\n");
+    }
+    else {
+        printf("Failure: %s\n", result.inner.err);
+    }
     return 0;
 }
 

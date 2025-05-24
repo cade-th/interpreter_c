@@ -4,6 +4,7 @@
 #include "../../../include/evaluator.h"
 #include <string.h>
 
+/*
 void test_interpreter(void) {
     char *input = "1 + 1 * 2;"; 
     Lexer lexer = Lexer_new(input);
@@ -14,3 +15,4 @@ void test_interpreter(void) {
 
     char *output = evaluate(tree);
 }
+*/

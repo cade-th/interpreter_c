@@ -1,5 +1,5 @@
 #pragma once
-#include "error.h"
+#include "../lib/utils_c/include/error.h"
 
 typedef enum {
 	INT,
@@ -26,5 +26,12 @@ typedef struct {
 	char *ch;
 } Lexer;
 
+typedef enum {
+	ILLEGAL_TOKEN
+} lexer_error_t;
+
+// Return either an array of tokens or an error
+RESULT(Token *, char *) LEX_RESULT;
+
 Lexer Lexer_new(char *input);
-Token *lex(Lexer *self);
+LEX_RESULT lex(Lexer *self);
