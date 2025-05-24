@@ -1,6 +1,7 @@
 CC = clang
 CFLAGS = -std=c99
 # -Wall -Wextra
+LDFLAGS = 
 
 # Directories
 SRC_DIR = src
@@ -13,13 +14,12 @@ LIB_DIR = lib
 SRC_FILES = $(SRC_DIR)/*.c 
 
 LIB_FILES = \
-	$(LIB_DIR)/utils_c/src/dyn_array.c
+	$(LIB_DIR)/utils_c/src/*.c
 
 TEST_FILES = \
 	$(SRC_FILES) \
 	$(LIB_FILES) \
 	$(TEST_DIR)/main.c \
-	$(TEST_DIR)/unity.c \
 	$(TEST_DIR)/interpreter_tests/src/*.c
 
 # Binaries
@@ -32,7 +32,7 @@ all: $(APP_BIN)
 # App build
 $(APP_BIN): $(SRC_FILES)
 	@mkdir -p $(BUILD_DIR)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 # Test build + run
 test: $(TEST_BIN)
@@ -40,7 +40,7 @@ test: $(TEST_BIN)
 
 $(TEST_BIN): $(TEST_FILES)
 	@mkdir -p $(BUILD_DIR)
-	$(CC) $(CFLAGS) -I$(TEST_DIR) -o $@ $^
+	$(CC) $(CFLAGS) -I$(TEST_DIR) -o $@ $^ $(LDFLAGS)
 
 # Clean build artifacts
 clean:
