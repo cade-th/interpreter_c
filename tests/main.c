@@ -6,11 +6,22 @@ int main(void) {
     // test_interpreter();    
     LEX_TEST_RESULT result = lexer_basic_test();
     if (result.is_ok) {
-        printf("Success\n");
+        printf("Lexer Test: Success\n");
     }
-    else {
-        printf("Failure: %s\n", result.inner.err);
-    }
+    switch (UNWRAP_ERR(result)) {
+            printf("Lexer Test: Fail\n");
+            case NUM_TOKENS : {
+                printf("Incorrect number of tokens\n");
+                return 1;
+            }
+            case INCORRECT_TOKEN: {
+                printf("Incorrect token somewhere\n");
+                return 1;
+            }
+            case LEXER_ERROR: {
+                return 1;
+            }
+        };
     return 0;
 }
 

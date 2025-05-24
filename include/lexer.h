@@ -26,10 +26,6 @@ typedef struct {
 	char *ch;
 } Lexer;
 
-typedef enum {
-	ILLEGAL_TOKEN
-} lexer_error_t;
-
 // Return either an array of tokens or an error
 RESULT(Token *, char *) LEX_RESULT;
 

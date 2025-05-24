@@ -1,9 +1,9 @@
 #include "../include/lexer_tests.h"
 #include "../../../include/lexer.h"
+#include <stdio.h>
 
 LEX_TEST_RESULT lexer_basic_test(void) {
     char* input = "=+(){},;";
-
     int expected_tokens_size = 9;
     Token expected_tokens[] = {
         {ASSIGN, "="},
@@ -18,18 +18,19 @@ LEX_TEST_RESULT lexer_basic_test(void) {
     };
 
     Lexer lexer = Lexer_new(input);
-    LEX_RESULT result = lex(&lexer);
-    if (result.is_ok) {
-        for (int i=0; i < expected_tokens_size; i++) {
+    LEX_RESULT lex_result = lex(&lexer);
+    if (lex_result.is_ok) {
             /* do something else here
+        for (int i=0; i < expected_tokens_size; i++) {
             TEST_ASSERT(result[i].type == expected_tokens[i].type);        
             TEST_ASSERT(result[i].literal == expected_tokens[i].literal);        
-            */
         }
+        */
 
     } else {
-        LEX_TEST_RESULT error = ERR(result.inner.err);
-        return error;
+        printf("%s",UNWRAP_ERR(lex_result));
+        LEX_TEST_RESULT result = ERR(LEXER_ERROR);
+        return result;
     }
 
     
