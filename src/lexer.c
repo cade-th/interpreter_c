@@ -2,6 +2,7 @@
 #include "../lib/utils_c/include/dyn_array.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 Lexer Lexer_new(char *input) {
 	Lexer lexer = {
@@ -11,21 +12,20 @@ Lexer Lexer_new(char *input) {
 	return lexer;
 }
 
+// Figure this out somehow
 Token tok_new(Token_t type, char ch) {
-	// This is the size limit for token literals rn ig
-	char literal[20];
-	sprintf(literal,"%c",ch);
-
-	Token tok = {
-		type,
-		literal
-	};
-	return tok;
+    Token tok;
+    tok.type = type;
+    tok.literal = malloc(2);
+    if (!tok.literal) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1);
+    }
+    tok.literal[0] = ch;
+    tok.literal[1] = '\0';
+    return tok;
 }
 
-char *tokens_to_string(Token *tokens) {
-		
-}
 
 // Gives the next character and advance the position in the input string
 void read_char(Lexer *self) {
@@ -70,6 +70,7 @@ TOKEN_RESULT next_token(Lexer *self) {
 LEX_RESULT lex(Lexer *self) {
 
 	Token *tokens = DYN_ARRAY(Token);	
+
 
 	while(1) {
 		TOKEN_RESULT tok_result = next_token(self);	

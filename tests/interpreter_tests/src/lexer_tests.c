@@ -1,5 +1,6 @@
 #include "../include/lexer_tests.h"
 #include "../../../include/lexer.h"
+#include "../../../lib/utils_c/include/dyn_array.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -19,8 +20,12 @@ LEX_TEST_RESULT lexer_basic_test(void) {
     };
 
     Lexer lexer = Lexer_new(input);
-    LEX_RESULT lex_result = lex(&lexer);
+    LEX_RESULT lex_result = lex(&lexer);    
     if (lex_result.is_ok) {
+        if (ARRAY_LENGTH(lex_result.inner.val) != expected_tokens_size) {
+            LEX_TEST_RESULT result = ERR(NUM_TOKENS);
+            return result;
+        }
         for (int i=0; i < expected_tokens_size; i++) {
             if(lex_result.inner.val[i].type != expected_tokens[i].type) {
                 LEX_TEST_RESULT result = ERR(INCORRECT_TOKEN_TYPE); 
@@ -29,6 +34,7 @@ LEX_TEST_RESULT lexer_basic_test(void) {
             }
             if(strcmp(lex_result.inner.val[i].literal,expected_tokens[i].literal) != 0) {
                 printf("Incorrect literal: %s\n", lex_result.inner.val[i].literal);
+                printf("Expected: %s\n", expected_tokens[i].literal);
                 LEX_TEST_RESULT result = ERR(INCORRECT_TOKEN_LITERAL);
                 return result;
             }

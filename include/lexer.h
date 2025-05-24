@@ -36,7 +36,6 @@ RESULT(Token *, char *) LEX_RESULT;
 RESULT(Token, char *) TOKEN_RESULT;
 
 Token tok_new(Token_t type, char ch);
-char *tokens_to_string(Token *tokens);
 
 void read_char(Lexer *self);
 Lexer Lexer_new(char *input);
