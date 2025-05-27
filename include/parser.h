@@ -3,7 +3,7 @@
 
 typedef struct {} Parser;
 typedef struct {} AST;
-Parser parser_new(Token *tokens);
+// Parser parser_new(Token *tokens);
 
-AST parse(Parser *self);
+// AST parse(Parser *self);
 

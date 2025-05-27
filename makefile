@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -std=c99
+CFLAGS = -std=c99 -g -Wall -Wextra
 # -Wall -Wextra
 LDFLAGS = 
 

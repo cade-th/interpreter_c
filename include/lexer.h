@@ -2,6 +2,16 @@
 #include "../lib/utils_c/include/error.h"
 
 typedef enum {
+	INVALID_TOKEN,
+	NUM_TOKENS,
+	INCORRECT_TOKEN_TYPE,
+	INCORRECT_TOKEN_LITERAL,
+	LEXER_ERR,
+	FUNCTION_BODY,
+} lexer_error_t;
+ERROR(lexer_error_t) lexer_error;
+
+typedef enum {
 	INT,
 	PLUS,
 	ASTERISK,
@@ -19,6 +29,7 @@ typedef enum {
 	LBRACKET
 } Token_t;
 
+
 typedef struct {
 	Token_t type;
 	char *literal;
@@ -31,13 +42,8 @@ typedef struct {
 	char ch; // current char under examination
 } Lexer;
 
-// Return either an array of tokens or an error
-RESULT(Token *, char *) LEX_RESULT;
-RESULT(Token, char *) TOKEN_RESULT;
-
 Token tok_new(Token_t type, char ch);
-
 void read_char(Lexer *self);
 Lexer Lexer_new(char *input);
-LEX_RESULT lex(Lexer *self);
-TOKEN_RESULT next_token(Lexer *self);
+lexer_error lex(Lexer *self);
+Token next_token(Lexer *self);

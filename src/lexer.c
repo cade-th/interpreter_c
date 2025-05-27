@@ -4,9 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+lexer_error error = { .ok = true}; // Initialize error
+
 Lexer Lexer_new(char *input) {
 	Lexer lexer = {
 		input,
+		.position = 0,
 	};
 	read_char(&lexer);
 	return lexer;
@@ -17,10 +20,6 @@ Token tok_new(Token_t type, char ch) {
     Token tok;
     tok.type = type;
     tok.literal = malloc(2);
-    if (!tok.literal) {
-        fprintf(stderr, "Memory allocation failed\n");
-        exit(1);
-    }
     tok.literal[0] = ch;
     tok.literal[1] = '\0';
     return tok;
@@ -29,7 +28,7 @@ Token tok_new(Token_t type, char ch) {
 
 // Gives the next character and advance the position in the input string
 void read_char(Lexer *self) {
-	if (self->read_position >= strlen(self->input)) {
+	if (self->read_position >= (int)strlen(self->input)) {
 		self->ch = 0;
 	} else {
 		self->ch = self->input[self->read_position];
@@ -38,9 +37,14 @@ void read_char(Lexer *self) {
 	self->read_position += 1;
 }
 
-TOKEN_RESULT next_token(Lexer *self) {
-	
+Token next_token(Lexer *self) {
 	Token tok;
+
+	// not doing this causes a segfault
+	tok = (Token) {
+		Eof,
+		" "
+	};
 
 	switch (self->ch) {
 		case '=': tok = tok_new(ASSIGN, self->ch); break;
@@ -58,32 +62,31 @@ TOKEN_RESULT next_token(Lexer *self) {
 			};
 			break;
 		}
-		default: {
-			TOKEN_RESULT result = ERR("Unrecognized Token\n");
-			return result;
-		}
+		default: 
+			tok = tok_new(ILLEGAL, self->ch);
+			THROW(error,char,self->ch);
+			break;
 	}
 	read_char(self);
-	TOKEN_RESULT result = OK(tok);
-	return result;
+	return tok;
 }
-LEX_RESULT lex(Lexer *self) {
 
-	Token *tokens = DYN_ARRAY(Token);	
+lexer_error lex(Lexer *self) {
+    Token *tokens = DYN_ARRAY(Token);    
+    bool should_lex = true;
 
-
-	while(1) {
-		TOKEN_RESULT tok_result = next_token(self);	
-		if (tok_result.is_ok) {
-			ARRAY_PUSH(tokens,tok_result.inner.val);
-			if (tok_result.inner.val.type == Eof) {
-				LEX_RESULT result = OK(tokens);
-				return result;
-			}
-		}
-		else {
-			LEX_RESULT result = ERR(tok_result.inner.err);
-			return result;
-		}
-	}
+    while (should_lex) {
+        Token current_tok = next_token(self);    
+        if (!error.ok) { // Check if an error occurred in next_token
+            should_lex = false; // Exit loop on error
+            break;
+        }
+        ARRAY_PUSH(tokens, current_tok);
+        if (current_tok.type == Eof) {
+            error.data = tokens;
+            should_lex = false;
+        }
+    }
+    return error;
 }
+
