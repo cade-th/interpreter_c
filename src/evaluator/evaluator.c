@@ -1,4 +1,4 @@
-#include "../include/evaluator.h"
+#include "evaluator.h"
 
 /*
 char *evaluate(AST tree) {
@@ -6,3 +6,7 @@ char *evaluate(AST tree) {
 	return value;
 }
 */
+
+void test_evaluator() {
+
+};

@@ -1,4 +1,4 @@
-#include "../include/parser.h"
+#include "parser.h"
 
 /*
 Parser parser_new(Token *tokens) {
