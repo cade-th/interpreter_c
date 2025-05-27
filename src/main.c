@@ -1,5 +1,6 @@
 #include "interpreter.h"
 #include "lexer/lexer.h"
+#include "parser/parser.h"
 
 void run_app(int argc, char *argv) {
 	Config config = config_build(argc, &argv);
@@ -8,6 +9,7 @@ void run_app(int argc, char *argv) {
 
 void run_tests() {
 	run_lexer_tests();		
+	run_parser_tests();
 }
 
 /*

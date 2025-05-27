@@ -128,7 +128,7 @@ void lexer_basic_test(char *input_1, int expected_tokens_size, Token expected_to
         case NUM_TOKENS:
             printf("Incorrect number of tokens. Expected Tokens: %d, Processed Tokens %d\n", expected_tokens_size, num_tokens);
             break;
-                    };
+    };
 
 
 }

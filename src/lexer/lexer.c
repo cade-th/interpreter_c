@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-lexer_error error = { .ok = true}; // Initialize error
+static lexer_error error = { .ok = true}; // Initialize error
 
 Lexer Lexer_new(char *input) {
 	Lexer lexer = {
