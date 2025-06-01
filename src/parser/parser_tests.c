@@ -14,6 +14,10 @@ void run_parser_tests() {
 		let result = add(five, ten);    \
 	";
 
+	char *input_3 = "			\
+						\
+	";
+
 
 
 	parser_basic_test(input_2);	
